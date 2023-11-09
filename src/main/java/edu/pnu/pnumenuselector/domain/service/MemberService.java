@@ -1,6 +1,5 @@
-package edu.pnu.pnumenuselector.domain.servicee;
+package edu.pnu.pnumenuselector.domain.service;
 
-import edu.pnu.pnumenuselector.data.JoinFormDto;
 import edu.pnu.pnumenuselector.domain.repository.MemberRepository;
 import edu.pnu.pnumenuselector.entity.member.Member;
 import lombok.RequiredArgsConstructor;
