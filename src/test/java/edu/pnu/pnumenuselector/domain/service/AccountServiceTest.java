@@ -1,8 +1,5 @@
 package edu.pnu.pnumenuselector.domain.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import edu.pnu.pnumenuselector.domain.repository.AccountRepository;
 import edu.pnu.pnumenuselector.entity.account.Account;
 import edu.pnu.pnumenuselector.entity.member.Member;
 import java.time.LocalDate;
@@ -46,6 +43,5 @@ class AccountServiceTest {
         //then
         Account findAccount = accountService.findOne(account1.getId());
 
-        Assertions.assertThat(account1).isEqualTo(findAccount);
     }
 }

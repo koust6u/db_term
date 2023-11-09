@@ -6,10 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import edu.pnu.pnumenuselector.entity.member.Authority;
 import edu.pnu.pnumenuselector.entity.member.Member;
 import edu.pnu.pnumenuselector.entity.member.Profile;
-import edu.pnu.pnumenuselector.entity.member.Role;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +30,6 @@ class ProfileServiceTest {
                 .pardonTime(LocalDateTime.now())
                 .build();
         Member member = Member.builder()
-                .authority(authority)
                 .email("aa@bb.cc")
                 .userId("aa")
                 .password("bb")

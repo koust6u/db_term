@@ -1,5 +1,7 @@
 package edu.pnu.pnumenuselector.entity.member;
 
+import static jakarta.persistence.CascadeType.ALL;
+
 import edu.pnu.pnumenuselector.entity.BaseEntity;
 import jakarta.persistence.*;
 
@@ -30,6 +32,9 @@ public class Authority extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = ALL)
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
     @Override
     public boolean equals(Object o) {
         if (this == o) {

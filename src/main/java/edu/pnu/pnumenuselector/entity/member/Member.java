@@ -39,9 +39,6 @@ public class Member extends BaseEntity {
     @Temporal(TemporalType.DATE)
     private LocalDate birthDay;
 
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = ALL)
-    @JoinColumn(name = "AUTHORITY_ID")
-    private Authority authority;
 
     @Override
     public boolean equals(Object o) {
@@ -54,12 +51,11 @@ public class Member extends BaseEntity {
         Member member = (Member) o;
         return Objects.equals(id, member.id) && Objects.equals(userId, member.userId)
                 && Objects.equals(password, member.password) && Objects.equals(email, member.email)
-                && Objects.equals(birthDay, member.birthDay)
-                && Objects.equals(authority, member.authority);
+                && Objects.equals(birthDay, member.birthDay);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, password, email, birthDay,  authority);
+        return Objects.hash(id, userId, password, email, birthDay);
     }
 }

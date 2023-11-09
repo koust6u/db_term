@@ -8,15 +8,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final ProfileService profileService;
+    private final AccountService accountService;
+    private final AuthorityService authorityService;
 
     @Transactional
-    public void signUp(Member member){
+    public void signUp(Member member) {
         memberRepository.save(member);
+        accountService.createByMember(member);
+        profileService.createByMember(member);
+        authorityService.grantByMember(member);
+        profileService.createByMember(member);
     }
 
-    public Member findOne(Long id){
+    public Member findOne(Long id) {
         return memberRepository.findById(id).orElseThrow();
     }
 

@@ -5,11 +5,8 @@ import static edu.pnu.pnumenuselector.entity.member.Role.ANONYMOUS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-import edu.pnu.pnumenuselector.domain.repository.AuthorityRepository;
 import edu.pnu.pnumenuselector.entity.member.Authority;
-import edu.pnu.pnumenuselector.entity.member.Role;
 import java.time.LocalDateTime;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
