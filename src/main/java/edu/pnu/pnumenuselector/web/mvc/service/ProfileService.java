@@ -1,9 +1,9 @@
 package edu.pnu.pnumenuselector.web.mvc.service;
 
+import edu.pnu.pnumenuselector.domain.data.dto.profile.ProfileDto;
 import edu.pnu.pnumenuselector.web.mvc.repository.ProfileRepository;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Profile;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +32,15 @@ public class ProfileService {
     public Profile findOne(Long id){
         return profileRepository.findById(id)
                 .orElseThrow();
+    }
+
+    @Transactional
+    public ProfileDto update(ProfileDto response, Member member){
+        Long id = member.getProfile()
+                .getId();
+        Profile findProfile = findOne(id);
+        findProfile.update(response);
+        return findProfile.toResponse();
     }
 }
 

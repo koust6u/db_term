@@ -2,14 +2,11 @@ package edu.pnu.pnumenuselector.domain.data.entity.member;
 
 import static jakarta.persistence.CascadeType.ALL;
 
-import edu.pnu.pnumenuselector.domain.data.dto.profile.ProfileResponse;
+import edu.pnu.pnumenuselector.domain.data.dto.profile.ProfileDto;
 import edu.pnu.pnumenuselector.domain.data.entity.listener.ProfileEntityListener;
 import jakarta.persistence.*;
-import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,11 +39,17 @@ public class Profile {
     private Member member;
 
 
-    public ProfileResponse toResponse(){
-        return ProfileResponse.builder()
+    public ProfileDto toResponse(){
+        return ProfileDto.builder()
                 .url(this.profilePhotoUrl)
                 .nickname(this.name)
                 .message(this.message)
                 .build();
+    }
+
+    public void update(ProfileDto response){
+        this.name = response.getNickname();
+        this.message = response.getMessage();
+        this.profilePhotoUrl = response.getUrl();
     }
 }

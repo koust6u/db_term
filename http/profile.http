@@ -10,5 +10,12 @@ Content-Type: application/json
 ### 표시되는 정보
 GET {{user-api}}/member/profile
 
+### 프로필 수정
+PATCH {{user-api}}/member/profile
+Content-Type: application/json
 
-
+{
+  "nickname": "aloooha",
+  "url": "https://www.naver.com",
+  "message": "안녕하세요. 저는 천재 개발자 김민종입니다. 저를 찾아와주셔서 영광입니다."
+}
