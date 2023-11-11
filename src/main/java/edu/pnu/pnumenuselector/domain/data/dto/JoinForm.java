@@ -22,7 +22,7 @@ public class JoinForm {
     @Pattern(regexp = "^[가-힣]$\n", message = "이름은 한글로 입력해주세요.")
     @Min(value = 2, message = "이름은 성을 포함해 최소 2글자입니다.")
     @Max(value = 15, message = "이름은 성을 포함하여 최대 15자 까지만 허용합니다.")*/
-    private String name;
+    private String username;
 
     private String userId;
     private String password;
@@ -35,6 +35,7 @@ public class JoinForm {
                 .userId(this.userId)
                 .email(this.email)
                 .password(this.password)
+                .username(this.username)
                 .build();
     }
 }

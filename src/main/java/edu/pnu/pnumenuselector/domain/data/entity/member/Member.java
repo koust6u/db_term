@@ -2,6 +2,8 @@ package edu.pnu.pnumenuselector.domain.data.entity.member;
 
 import static jakarta.persistence.CascadeType.REMOVE;
 
+import edu.pnu.pnumenuselector.domain.data.dto.MemberResponse;
+import edu.pnu.pnumenuselector.domain.data.dto.UpdateForm;
 import edu.pnu.pnumenuselector.domain.data.entity.BaseEntity;
 import edu.pnu.pnumenuselector.domain.data.entity.account.Account;
 import edu.pnu.pnumenuselector.domain.data.entity.book.Book;
@@ -20,7 +22,7 @@ import java.time.LocalDate;
 
 @Entity
 @Builder
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class Member extends BaseEntity {
@@ -39,10 +41,13 @@ public class Member extends BaseEntity {
     @Getter
     private String password;
 
+    @Column(nullable = false, name = "NAME")
+    private String username;
+
     private String email;
 
     @Getter
-    @OneToOne(mappedBy = "member")
+    @OneToOne(mappedBy = "member", cascade = REMOVE)
     private Authority authority;
 
     @Getter
@@ -61,8 +66,8 @@ public class Member extends BaseEntity {
     private List<Order> lendList = new ArrayList<>();
 
     @OneToMany(mappedBy = "borrower", cascade = REMOVE)
-    private List<Order> borrower = new ArrayList<>();
-    @OneToMany(mappedBy = "owner")
+    private List<Order> borrowList = new ArrayList<>();
+    @OneToMany(mappedBy = "owner", cascade = REMOVE)
     private List<Book> books = new ArrayList<>();
     public void initializeRelation(Account account, Profile profile, Authority authority){
         this.account = account;
@@ -74,5 +79,21 @@ public class Member extends BaseEntity {
         if (!this.password.equals(inputPassword)){
             throw new WrongPasswordException();
         }
+    }
+
+    public MemberResponse toResponse(){
+        return MemberResponse.builder()
+                .username(this.username)
+                .email(this.email)
+                .userId(this.userId)
+                .birthday(this.birthDay)
+                .build();
+    }
+
+    public void updateInfo(UpdateForm form){
+        this.userId = form.getUserId();
+        this.password = form.getPassword();
+        this.email = form.getEmail();
+        this.birthDay = form.getBirthday();
     }
 }

@@ -1,4 +1,4 @@
-package edu.pnu.pnumenuselector.mvc.service;
+package edu.pnu.pnumenuselector.web.mvc.service;
 
 import edu.pnu.pnumenuselector.domain.data.dto.JoinForm;
 import edu.pnu.pnumenuselector.domain.data.entity.account.Account;
@@ -29,7 +29,7 @@ class AccountServiceTest {
         //given
 
         JoinForm form  = JoinForm.builder()
-                .name("name")
+                .username("name")
                 .birthday(LocalDate.now())
                 .email("aa@bb.cc")
                 .userId("userId")

@@ -1,5 +1,6 @@
 package edu.pnu.pnumenuselector.web.mvc.service;
 
+import edu.pnu.pnumenuselector.domain.data.dto.UpdateForm;
 import edu.pnu.pnumenuselector.web.exception.MemberNotFoundException;
 import edu.pnu.pnumenuselector.web.mvc.repository.MemberRepository;
 import edu.pnu.pnumenuselector.domain.data.entity.account.Account;
@@ -43,6 +44,13 @@ public class MemberService {
         memberRepository.delete(targetMember);
     }
 
+    @Transactional
+    public Member update(UpdateForm form,Long id){
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new MemberNotFoundException(form.getUserId()));
+        member.updateInfo(form);
+        return findOne(id);
+    }
     public Member findOne(Long id) {return memberRepository.findById(id).orElseThrow();}
 
     private void postRegistrationProcess(Member member) {

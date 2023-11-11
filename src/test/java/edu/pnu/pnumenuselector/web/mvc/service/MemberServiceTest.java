@@ -1,4 +1,4 @@
-package edu.pnu.pnumenuselector.mvc.service;
+package edu.pnu.pnumenuselector.web.mvc.service;
 
 import edu.pnu.pnumenuselector.domain.data.dto.JoinForm;
 import edu.pnu.pnumenuselector.domain.data.entity.account.Account;
@@ -106,7 +106,7 @@ class MemberServiceTest {
     @DisplayName("비밀번호 틀렸을 시")
     void loginInvalidPWTest() throws Exception {
         //given
-        Member member = DataUtils.dummyMember1();
+        Member member = DataUtils.dummyMember2();
         //when
         memberService.signUp(member);
         //then

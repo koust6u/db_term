@@ -1,4 +1,4 @@
-package edu.pnu.pnumenuselector.mvc.service;
+package edu.pnu.pnumenuselector.web.mvc.service;
 
 import static edu.pnu.pnumenuselector.domain.data.entity.member.Role.ADMIN;
 import static edu.pnu.pnumenuselector.domain.data.entity.member.Role.ANONYMOUS;

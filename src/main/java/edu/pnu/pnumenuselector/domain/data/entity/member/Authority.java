@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 @AllArgsConstructor
-@EqualsAndHashCode
 @NoArgsConstructor
 public class Authority extends BaseEntity {
 
@@ -35,7 +34,7 @@ public class Authority extends BaseEntity {
     private Role role;
 
     @Getter
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = ALL)
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 

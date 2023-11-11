@@ -1,6 +1,42 @@
-#로그인
-POST localhost:8080/member/signup
+### 회원가입
+POST {{user-api}}/member/signup
 Content-Type: application/json
-{
 
+{
+  "username": "김민종",
+  "userId": "dummyId",
+  "password": "dummyPassword",
+  "birthday": "1998-12-11",
+  "email": "koust6u@pusan.ac.kr"
 }
+
+### 로그인
+POST {{user-api}}/member/login
+Content-Type: application/json
+
+{
+  "userId": "dummyId",
+  "password": "dummyPassword"
+}
+
+### 개인 정보 요청
+GET {{user-api}}/member
+
+
+### 로그아웃
+POST {{user-api}}/member/logout
+
+### 회원 정보 수정
+PATCH {{user-api}}/member
+Content-Type: application/json
+
+{
+  "userId": "changed",
+  "password": "changed",
+  "email": "cha@nge.d",
+  "birthday": "1234-12-11"
+}
+
+
+### 회원 탈퇴
+DELETE {{user-api}}/member

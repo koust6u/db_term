@@ -1,7 +1,6 @@
 package edu.pnu.pnumenuselector.domain.data.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,10 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LoginForm {
+public class UpdateForm {
 
-    private String userId;
+    String userId;
 
-    private String password;
+    LocalDate  birthday;
+    String email;
+    String password;
 
 }

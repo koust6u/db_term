@@ -22,7 +22,6 @@ import org.hibernate.annotations.CreationTimestamp;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @Builder
 public class Account {
     @Id @GeneratedValue
