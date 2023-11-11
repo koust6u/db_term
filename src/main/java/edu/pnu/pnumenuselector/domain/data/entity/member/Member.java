@@ -2,8 +2,8 @@ package edu.pnu.pnumenuselector.domain.data.entity.member;
 
 import static jakarta.persistence.CascadeType.REMOVE;
 
-import edu.pnu.pnumenuselector.domain.data.dto.MemberResponse;
-import edu.pnu.pnumenuselector.domain.data.dto.UpdateForm;
+import edu.pnu.pnumenuselector.domain.data.dto.member.MemberResponse;
+import edu.pnu.pnumenuselector.domain.data.dto.member.UpdateForm;
 import edu.pnu.pnumenuselector.domain.data.entity.BaseEntity;
 import edu.pnu.pnumenuselector.domain.data.entity.account.Account;
 import edu.pnu.pnumenuselector.domain.data.entity.book.Book;
@@ -95,5 +95,6 @@ public class Member extends BaseEntity {
         this.password = form.getPassword();
         this.email = form.getEmail();
         this.birthDay = form.getBirthday();
+        this.lastModifiedBy = form.getModifyBy();
     }
 }

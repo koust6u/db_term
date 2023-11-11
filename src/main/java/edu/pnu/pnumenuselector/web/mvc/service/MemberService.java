@@ -1,6 +1,6 @@
 package edu.pnu.pnumenuselector.web.mvc.service;
 
-import edu.pnu.pnumenuselector.domain.data.dto.UpdateForm;
+import edu.pnu.pnumenuselector.domain.data.dto.member.UpdateForm;
 import edu.pnu.pnumenuselector.web.exception.MemberNotFoundException;
 import edu.pnu.pnumenuselector.web.mvc.repository.MemberRepository;
 import edu.pnu.pnumenuselector.domain.data.entity.account.Account;

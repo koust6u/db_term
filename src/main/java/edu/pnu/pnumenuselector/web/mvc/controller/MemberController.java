@@ -1,22 +1,20 @@
 package edu.pnu.pnumenuselector.web.mvc.controller;
 
+import static edu.pnu.pnumenuselector.web.WebConstant.REMOTE_ADDR;
 import static edu.pnu.pnumenuselector.web.WebConstant.SESSION_ID;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.OK;
 
-import edu.pnu.pnumenuselector.domain.data.dto.JoinForm;
-import edu.pnu.pnumenuselector.domain.data.dto.LoginForm;
-import edu.pnu.pnumenuselector.domain.data.dto.UpdateForm;
+import edu.pnu.pnumenuselector.domain.data.dto.member.JoinForm;
+import edu.pnu.pnumenuselector.domain.data.dto.member.LoginForm;
+import edu.pnu.pnumenuselector.domain.data.dto.member.UpdateForm;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
-import edu.pnu.pnumenuselector.web.WebConstant;
 import edu.pnu.pnumenuselector.web.mvc.service.MemberService;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,10 +77,12 @@ public class MemberController {
 
     @PatchMapping
     public ResponseEntity<?> updateMemberInfo(@RequestBody UpdateForm form, HttpServletRequest request){
-        HttpSession session = request.getSession();
-        Member member = (Member) session.getAttribute(SESSION_ID);
-        Member update = memberService.update(form, member.getId());
+        HttpSession session = request.getSession(false);
+        Member member = (Member)session.getAttribute(SESSION_ID);
 
+        String ip = request.getHeader(REMOTE_ADDR);
+        form.setModifyBy(ip);
+        Member update = memberService.update(form, member.getId());
         session.setAttribute(SESSION_ID, update);
         return ResponseEntity.ok(update.toResponse());
     }

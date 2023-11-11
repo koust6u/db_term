@@ -1,7 +1,7 @@
 package edu.pnu.pnumenuselector.utils;
 
-import edu.pnu.pnumenuselector.domain.data.dto.JoinForm;
-import edu.pnu.pnumenuselector.domain.data.dto.LoginForm;
+import edu.pnu.pnumenuselector.domain.data.dto.member.JoinForm;
+import edu.pnu.pnumenuselector.domain.data.dto.member.LoginForm;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
 import edu.pnu.pnumenuselector.web.mvc.service.MemberService;
 import java.time.LocalDate;

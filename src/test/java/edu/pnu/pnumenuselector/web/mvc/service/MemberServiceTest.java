@@ -1,6 +1,5 @@
 package edu.pnu.pnumenuselector.web.mvc.service;
 
-import edu.pnu.pnumenuselector.domain.data.dto.JoinForm;
 import edu.pnu.pnumenuselector.domain.data.entity.account.Account;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Authority;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
@@ -9,14 +8,11 @@ import edu.pnu.pnumenuselector.utils.DataUtils;
 import edu.pnu.pnumenuselector.web.exception.DuplicateUserIdException;
 import edu.pnu.pnumenuselector.web.exception.MemberNotFoundException;
 import edu.pnu.pnumenuselector.web.exception.WrongPasswordException;
-import edu.pnu.pnumenuselector.web.mvc.service.MemberService;
-import javax.xml.crypto.Data;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDate;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;

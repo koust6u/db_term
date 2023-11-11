@@ -1,4 +1,4 @@
-package edu.pnu.pnumenuselector.domain.data.dto;
+package edu.pnu.pnumenuselector.domain.data.dto.member;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

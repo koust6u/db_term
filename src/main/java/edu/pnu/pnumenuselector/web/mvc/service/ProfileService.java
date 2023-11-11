@@ -19,7 +19,6 @@ public class ProfileService {
     public Profile createByMember(Member member){
         Profile newProfile = Profile.builder()
                 .member(member)
-                .name(UUID.randomUUID().toString())
                 .build();
         profileRepository.save(newProfile);
 

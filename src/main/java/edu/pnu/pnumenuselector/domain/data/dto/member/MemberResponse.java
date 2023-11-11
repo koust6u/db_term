@@ -1,4 +1,4 @@
-package edu.pnu.pnumenuselector.domain.data.dto;
+package edu.pnu.pnumenuselector.domain.data.dto.member;
 
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
 import jakarta.persistence.Entity;

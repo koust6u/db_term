@@ -1,10 +1,8 @@
 package edu.pnu.pnumenuselector.web.mvc.service;
 
-import edu.pnu.pnumenuselector.domain.data.dto.JoinForm;
+import edu.pnu.pnumenuselector.domain.data.dto.member.JoinForm;
 import edu.pnu.pnumenuselector.domain.data.entity.account.Account;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
-import edu.pnu.pnumenuselector.web.mvc.service.AccountService;
-import edu.pnu.pnumenuselector.web.mvc.service.MemberService;
 import java.time.LocalDate;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

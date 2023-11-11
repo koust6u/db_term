@@ -23,11 +23,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public abstract class BaseEntity {
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    protected LocalDateTime createdAt;
 
     @LastModifiedDate
-    private LocalDateTime lastModifiedAt;
+    protected LocalDateTime lastModifiedAt;
 
-    private String createdBy;
-    private String lastModifiedBy;
+    protected String createdBy;
+    protected String lastModifiedBy;
 }

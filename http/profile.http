@@ -1,0 +1,14 @@
+### 로그인
+POST {{user-api}}/member/login
+Content-Type: application/json
+
+{
+  "userId": "dummyId",
+  "password": "dummyPassword"
+}
+
+### 표시되는 정보
+GET {{user-api}}/member/profile
+
+
+
