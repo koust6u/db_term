@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -39,6 +40,7 @@ public class Category {
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
 
+    @Setter
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "BOOK_CATEGORY",
             joinColumns = @JoinColumn(name ="CATEGORY_ID"),
