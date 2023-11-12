@@ -124,7 +124,6 @@ class MemberControllerTest {
           UpdateForm form = UpdateForm.builder()
                   .email("kimkin@kinn.kam")
                   .birthday(LocalDate.now())
-                  .userId("kimmim")
                   .password("kkkiiimmm")
                   .build();
           MockHttpServletRequest request = new MockHttpServletRequest();

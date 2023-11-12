@@ -47,7 +47,7 @@ public class MemberService {
     @Transactional
     public Member update(UpdateForm form,Long id){
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new MemberNotFoundException(form.getUserId()));
+                .orElseThrow(MemberNotFoundException::new);
         member.updateInfo(form);
         return findOne(id);
     }

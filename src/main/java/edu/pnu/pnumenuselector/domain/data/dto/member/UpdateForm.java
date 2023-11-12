@@ -13,7 +13,6 @@ import lombok.Setter;
 @Builder
 public class UpdateForm {
 
-    String userId;
     LocalDate  birthday;
     String email;
     String password;

@@ -91,7 +91,6 @@ public class Member extends BaseEntity {
     }
 
     public void updateInfo(UpdateForm form){
-        this.userId = form.getUserId();
         this.password = form.getPassword();
         this.email = form.getEmail();
         this.birthDay = form.getBirthday();
