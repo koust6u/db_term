@@ -44,15 +44,16 @@ class CategoryServiceTest {
         Long id = DataUtils.randomSave(memberService);
         Member member = memberService.findOne(id);
         List<Book> books = DataUtils.genBookList(member);
-        for (Book book : books) {
-            bookService.registrationBook(book);
-        }
+        books.forEach(bookService::registrationBook);
         Category category = Category.builder()
                 .books(books)
                 .name("기술 서적")
                 .build();
         //when
         categoryService.regCategory(category);
+        Category findCategory = categoryService.findOne(category.getId());
         //then
+        Assertions.assertThat(findCategory).isEqualTo(category);
+
      }
 }

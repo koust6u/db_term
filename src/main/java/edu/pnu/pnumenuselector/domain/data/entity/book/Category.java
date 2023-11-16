@@ -31,6 +31,7 @@ public class Category {
     @Column(name = "CATEGORY_ID")
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,7 +41,7 @@ public class Category {
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
 
-    @Setter
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "BOOK_CATEGORY",
             joinColumns = @JoinColumn(name ="CATEGORY_ID"),
@@ -49,11 +50,19 @@ public class Category {
     private List<Book> books  = new ArrayList<>();
 
     public void initializeParent(Category child){
+        if (this.child == null){
+            this.child = new ArrayList<>();
+        }
         this.child.add(child);
         child.setParent(this);
     }
 
     private void setParent(Category parent) {
         this.parent = parent;
+    }
+
+    public void regNewBook(Book book){
+        this.books.add(book);
+        book.getCategories().add(this);
     }
 }

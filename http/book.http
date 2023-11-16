@@ -1,0 +1,14 @@
+### 책 등록
+{{user-api}}/book/registration
+Content-Type: application/json
+
+{
+  "title": "The Book Title",
+  "author": "Author Name",
+  "description": "Description of the book",
+  "price": 20,
+  "stockQuantity": 100,
+  "categoryRegDto": {
+    "names": ["Fiction", "Science Fiction", "Thriller"]
+  }
+}

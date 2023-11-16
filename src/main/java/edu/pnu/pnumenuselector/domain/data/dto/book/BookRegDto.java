@@ -20,15 +20,13 @@ public class BookRegDto {
     private int price;
     private int stockQuantity;
 
-    private List<Category> categories;
-
+    private CategoryRegDto categoryRegDto;
     public Book toEntity(Member member){
         return Book.builder()
                 .title(title)
                 .author(author)
                 .price(price)
                 .description(description)
-                .categories(categories)
                 .owner(member)
                 .stockQuantity(stockQuantity)
                 .build();

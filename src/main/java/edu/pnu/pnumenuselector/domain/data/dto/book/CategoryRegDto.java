@@ -1,5 +1,6 @@
 package edu.pnu.pnumenuselector.domain.data.dto.book;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class CategoryRegDto {
 
-    private String name;
+    private List<String> names;
+
 
 }
