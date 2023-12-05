@@ -1,5 +1,14 @@
+### 카테고리 등록
+POST {{user-api}}/category
+Content-Type: application/json
+
+{
+  "name": "Science Fiction"
+}
+
+
 ### 책 등록
-{{user-api}}/book/registration
+POST {{user-api}}/book/registration
 Content-Type: application/json
 
 {

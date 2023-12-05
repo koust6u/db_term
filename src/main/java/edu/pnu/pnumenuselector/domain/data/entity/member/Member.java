@@ -59,7 +59,6 @@ public class Member extends BaseEntity {
     private Account account;
 
 
-    @Temporal(TemporalType.DATE)
     private LocalDate birthDay;
 
     @OneToMany(mappedBy = "lender", cascade = REMOVE)

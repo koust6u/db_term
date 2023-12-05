@@ -4,12 +4,10 @@ import static edu.pnu.pnumenuselector.web.WebConstant.SESSION_ID;
 import static org.springframework.http.HttpStatus.CREATED;
 
 import edu.pnu.pnumenuselector.domain.data.dto.book.BookRegDto;
-import edu.pnu.pnumenuselector.domain.data.dto.book.CategoryRegDto;
 import edu.pnu.pnumenuselector.domain.data.entity.book.Book;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
 import edu.pnu.pnumenuselector.web.mvc.service.BookService;
 import edu.pnu.pnumenuselector.web.mvc.service.CategoryService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +34,7 @@ public class BookController {
         regDto.getCategoryRegDto().getNames()
                 .stream()
                 .map(categoryService::searchCategoryByName)
-                .forEach(category -> category.regNewBook(book));
+                .forEach(category -> categoryService.addNewBook(category, book));
         return ResponseEntity.status(CREATED).build();
     }
 

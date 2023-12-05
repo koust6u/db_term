@@ -1,9 +1,8 @@
 package edu.pnu.pnumenuselector.domain.data.dto.book;
 
 import edu.pnu.pnumenuselector.domain.data.entity.book.Book;
-import edu.pnu.pnumenuselector.domain.data.entity.book.Category;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
-import java.util.List;
+import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +19,7 @@ public class BookRegDto {
     private int price;
     private int stockQuantity;
 
-    private CategoryRegDto categoryRegDto;
+    private CategoryRegWithBookDto categoryRegDto;
     public Book toEntity(Member member){
         return Book.builder()
                 .title(title)
@@ -28,6 +27,7 @@ public class BookRegDto {
                 .price(price)
                 .description(description)
                 .owner(member)
+                .categories(new ArrayList<>())
                 .stockQuantity(stockQuantity)
                 .build();
     }

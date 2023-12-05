@@ -50,5 +50,10 @@ public class Book {
     @JoinColumn(name = "MEMBER_ID")
     private Member owner;
 
+
+    public void addNewCategory(Category category){
+        this.categories.add(category);
+    }
+
 }
 

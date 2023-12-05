@@ -63,6 +63,11 @@ public class Category {
 
     public void regNewBook(Book book){
         this.books.add(book);
-        book.getCategories().add(this);
+        book.addNewCategory(this);
+    }
+
+
+    public void updateName(String name){
+        this.name = name;
     }
 }

@@ -33,5 +33,8 @@ public class BookService {
                 .orElseThrow(BookNotFoundException::new);
 
     }
+    public void deleteBook(Book book){
+        bookRepository.delete(book);
+    }
 
 }
