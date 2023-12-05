@@ -53,6 +53,12 @@ public class MemberService {
     }
     public Member findOne(Long id) {return memberRepository.findById(id).orElseThrow();}
 
+
+    public Member searchMemberByUserId(String userId){
+
+        return memberRepository.findByUserId(userId)
+                .orElseThrow(MemberNotFoundException::new);
+    }
     private void postRegistrationProcess(Member member) {
         Account newAccount = accountService.createByMember(member);
         Profile newProfile = profileService.createByMember(member);

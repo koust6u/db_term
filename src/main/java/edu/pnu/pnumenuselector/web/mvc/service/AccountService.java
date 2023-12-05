@@ -57,16 +57,19 @@ public class AccountService {
 
     @Transactional
     public void transfer(Member fromUser, Member toUser,TransferForm form){
+        fromUser = memberRepository.findById(fromUser.getId()).orElseThrow();
+        toUser = memberRepository.findById(toUser.getId()).orElseThrow();
         Account fromAccount = fromUser.getAccount();
         Account toAccount = toUser.getAccount();
-        if (fromAccount.getCredit() - form.getCredit() < 0){
+        if (fromAccount.getCredit() - form.getAmount() < 0){
             throw new BalanceInsufficientException();
         }
+
         remittanceLogging(fromUser, toUser, form, fromAccount);
         refundLogging(fromUser, toUser, form, toAccount);
 
-        fromAccount.changeCredit( -1 * form.getCredit());
-        toAccount.changeCredit(form.getCredit());
+        fromAccount.changeCredit( -1 * form.getAmount());
+        toAccount.changeCredit(form.getAmount());
     }
 
     private void refundLogging(Member fromUser, Member toUser, TransferForm form, Account toAccount) {
@@ -74,8 +77,8 @@ public class AccountService {
                 .account(toAccount)
                 .fromUserId(fromUser.getUserId())
                 .toUserId(toUser.getUserId())
-                .credit(form.getCredit())
-                .totalCredit(toAccount.getCredit() + form.getCredit())
+                .credit(form.getAmount())
+                .totalCredit(toAccount.getCredit() + form.getAmount())
                 .content("착금")
                 .build();
         transactionLogRepository.save(refund);
@@ -86,8 +89,8 @@ public class AccountService {
                 .fromUserId(fromUser.getUserId())
                 .toUserId(toUser.getUserId())
                 .content("송금")
-                .credit(-1 * form.getCredit())
-                .totalCredit(fromAccount.getCredit() - form.getCredit())
+                .credit(-1 * form.getAmount())
+                .totalCredit(fromAccount.getCredit() - form.getAmount())
                 .account(fromAccount)
                 .build();
         transactionLogRepository.save(remittance);

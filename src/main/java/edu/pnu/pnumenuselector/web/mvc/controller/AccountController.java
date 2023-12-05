@@ -11,6 +11,7 @@ import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
 import edu.pnu.pnumenuselector.web.WebConstant;
 import edu.pnu.pnumenuselector.web.mvc.service.AccountService;
 import edu.pnu.pnumenuselector.web.mvc.service.MemberService;
+import edu.pnu.pnumenuselector.web.mvc.service.TransactionLogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -30,18 +31,23 @@ public class AccountController {
 
     private final AccountService accountService;
 
+    private final TransactionLogService transactionLogService;
     private final MemberService memberService;
     @PostMapping("/deposit")
-    public ResponseEntity<?> chargeCredit(@SessionAttribute(SESSION_ID) Member member, @RequestBody DepositForm form){
+    public ResponseEntity<?> chargeCredit(@SessionAttribute(name =SESSION_ID) Member member, @RequestBody DepositForm form){
         AccountResponse depositResponse = accountService.deposit(member.getId(), form);
         return ResponseEntity.ok(depositResponse);
     }
 
     @PostMapping("/transfer/{to-member-id}")
-    public ResponseEntity<?> transfer(@SessionAttribute(SESSION_ID)Member from,
-                                      @PathVariable("to-member-id") Long id,
+    public ResponseEntity<?> transfer(@SessionAttribute(name = SESSION_ID)Member from,
+                                      @PathVariable("to-member-id") String destinationUserid,
                                       @RequestBody TransferForm form){
-        Member toMember = memberService.findOne(id);
+
+        if (from.getUserId().equals(destinationUserid)){
+            throw new IllegalStateException("자기 자신에게 입금은 허용되지 않습니다.");
+        }
+        Member toMember = memberService.searchMemberByUserId(destinationUserid);
         accountService.transfer(from,toMember, form);
         return ResponseEntity.ok().build();
     }
@@ -52,6 +58,9 @@ public class AccountController {
         Long credit = account.getCredit();
         AccountInfo info = AccountInfo.builder()
                 .credit(credit)
+                .allLogs(transactionLogService.findAll(member.getUserId()))
+                .originLogs(transactionLogService.findOrigin(member.getUserId()))
+                .destLogs(transactionLogService.findDest(member.getUserId()))
                 .build();
         return ResponseEntity.ok(info);
     }

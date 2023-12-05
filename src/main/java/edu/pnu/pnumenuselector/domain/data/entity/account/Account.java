@@ -42,6 +42,9 @@ public class Account {
     @CreatedDate
     private LocalDateTime createdAt;
 
+    @OneToMany(mappedBy = "account")
+    private List<TransactionLog> transactionLog;
+
 
     @OneToOne(orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "MEMBER_ID")

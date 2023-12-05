@@ -1,5 +1,6 @@
 package edu.pnu.pnumenuselector.domain.data.entity.account;
 
+import edu.pnu.pnumenuselector.domain.data.dto.account.LogForm;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,4 +50,16 @@ public class TransactionLog {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ACCOUNT_ID")
     private Account account;
+
+
+    public LogForm convertToDto(String type){
+        return LogForm.builder()
+                .amount(this.credit)
+                .from(fromUserId)
+                .to(toUserId)
+                .type(type)
+                .totalAmount(totalCredit)
+                .createdAt(this.createdAt)
+                .build();
+    }
 }

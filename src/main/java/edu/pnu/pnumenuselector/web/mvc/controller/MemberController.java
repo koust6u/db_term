@@ -38,7 +38,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/health")
-    public ResponseEntity<?> loginCheck(@SessionAttribute(value = SESSION_ID, required = false)Member member
+    public ResponseEntity<?> loginCheck(@SessionAttribute(name = SESSION_ID, required = false)Member member
     ){
         return member != null? ResponseEntity.ok().build():ResponseEntity.status(FORBIDDEN).build();
     }

@@ -2,7 +2,6 @@ package edu.pnu.pnumenuselector.web.mvc.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import edu.pnu.pnumenuselector.domain.data.dto.account.AccountResponse;
 import edu.pnu.pnumenuselector.domain.data.dto.account.DepositForm;
 import edu.pnu.pnumenuselector.domain.data.dto.account.TransferForm;
 import edu.pnu.pnumenuselector.domain.data.dto.member.JoinForm;
@@ -16,7 +15,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Role;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -79,7 +77,7 @@ class AccountServiceTest {
         Long from = DataUtils.randomSave(memberService);
         Long to = DataUtils.randomSave(memberService);
         TransferForm form = TransferForm.builder()
-                .credit(1000L)
+                .amount(1000L)
                 .build();
 
         Member fromMember = memberService.findOne(from);
@@ -97,7 +95,7 @@ class AccountServiceTest {
          Long from = DataUtils.randomSave(memberService);
          Long to = DataUtils.randomSave(memberService);
          TransferForm form = TransferForm.builder()
-                 .credit(1000L)
+                 .amount(1000L)
                  .build();
 
          Member fromMember = memberService.findOne(from);
