@@ -3,22 +3,14 @@ package edu.pnu.pnumenuselector.domain.data.entity.order;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.LAZY;
 
+import edu.pnu.pnumenuselector.domain.data.dto.order.OrderDto;
+import edu.pnu.pnumenuselector.domain.data.entity.book.Book;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 
 @Entity
 @Table(name = "ORDERS")
@@ -27,24 +19,42 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Order {
     @Id @GeneratedValue
+    @Getter
     @Column(name = "ORDER_ID")
     private Long id;
 
 
-    @ManyToOne(fetch = LAZY, cascade = ALL)
+    @Getter
+    @OneToOne(fetch = LAZY)
+    @JoinColumn(name = "BOOK_ID", nullable = false)
+    private Book book;
+
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "LENDER")
     private Member lender;
 
-    @ManyToOne(fetch = LAZY, cascade = ALL)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "BORROWER")
     private Member borrower;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime period;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     private Receipt receipt;
+
+    public OrderDto convertToDto(){
+        return OrderDto.builder()
+                .lender(lender.getUserId())
+                .status(this.status)
+                .period(this.period)
+                .receipt(this.receipt)
+                .build();
+    }
+
 }

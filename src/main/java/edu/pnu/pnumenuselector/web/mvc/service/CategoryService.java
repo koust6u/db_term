@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -37,6 +39,15 @@ public class CategoryService {
                 .orElseThrow(() -> new CategoryNotFoundException(name));
     }
 
+    public Category regBook(String categoryName){
+        Optional<Category> category = categoryRepository.findCategoryByName(categoryName);
+        if (category.isEmpty()){
+            Category newCategory = new Category(categoryName);
+            categoryRepository.save(newCategory);
+            return newCategory;
+        }
+        return category.get();
+    }
     @Transactional
     public void updateCategoryName(Category category, String name){
         category.updateName(name);

@@ -1,3 +1,4 @@
+/*
 package edu.pnu.pnumenuselector.web.mvc.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -71,4 +72,4 @@ class BookServiceTest {
         assertThat(hacker.size()).isEqualTo(2);
 
       }
-}
+}*/

@@ -1,19 +1,16 @@
 package edu.pnu.pnumenuselector.domain.data.entity.book;
 
+import edu.pnu.pnumenuselector.domain.data.dto.book.BookRegDto;
+import edu.pnu.pnumenuselector.domain.data.dto.book.CategoryRegWithBookDto;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import edu.pnu.pnumenuselector.domain.data.entity.order.Order;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,12 +36,17 @@ public class Book {
     @Column(name = "DESC")
     private String description;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "books", cascade = CascadeType.REMOVE)
     private List<Category> categories = new ArrayList<>();
+
+    @OneToOne(mappedBy = "book", cascade = CascadeType.REMOVE)
+    private Order order;
 
     private int price;
 
-    private int stockQuantity;
+    private String url;
+
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
@@ -53,6 +55,23 @@ public class Book {
 
     public void addNewCategory(Category category){
         this.categories.add(category);
+    }
+
+    public BookRegDto convertToDto(){
+        return BookRegDto.builder()
+                .photo(this.url)
+                .categoryRegDto(new CategoryRegWithBookDto(this.categories
+                        .stream()
+                        .map(Category::getName)
+                        .collect(Collectors.toList())
+                        )
+                )
+                .ownerNickName(this.owner.getUserId())
+                .author(this.author)
+                .price(this.price)
+                .description(this.description)
+                .title(this.title)
+                .build();
     }
 
 }

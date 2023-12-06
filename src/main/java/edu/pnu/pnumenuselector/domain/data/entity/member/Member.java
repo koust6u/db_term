@@ -66,6 +66,8 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "borrower", cascade = REMOVE)
     private List<Order> borrowList = new ArrayList<>();
+
+    @Getter
     @OneToMany(mappedBy = "owner", cascade = REMOVE)
     private List<Book> books = new ArrayList<>();
     public void initializeRelation(Account account, Profile profile, Authority authority){

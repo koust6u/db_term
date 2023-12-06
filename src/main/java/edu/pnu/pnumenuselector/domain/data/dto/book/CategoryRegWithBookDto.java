@@ -1,6 +1,8 @@
 package edu.pnu.pnumenuselector.domain.data.dto.book;
 
 import java.util.List;
+
+import edu.pnu.pnumenuselector.domain.data.entity.book.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

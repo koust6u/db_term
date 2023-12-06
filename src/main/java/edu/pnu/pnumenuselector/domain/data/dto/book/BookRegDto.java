@@ -17,18 +17,20 @@ public class BookRegDto {
     private String author;
     private String description;
     private int price;
-    private int stockQuantity;
 
+    private String photo;
+
+    private String ownerNickName;
     private CategoryRegWithBookDto categoryRegDto;
     public Book toEntity(Member member){
         return Book.builder()
                 .title(title)
                 .author(author)
                 .price(price)
+                .url(photo)
                 .description(description)
                 .owner(member)
                 .categories(new ArrayList<>())
-                .stockQuantity(stockQuantity)
                 .build();
     }
 }

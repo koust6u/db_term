@@ -42,6 +42,10 @@ public class Category {
     private List<Category> child = new ArrayList<>();
 
 
+    public Category(String name) {
+        this.name = name;
+    }
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "BOOK_CATEGORY",
             joinColumns = @JoinColumn(name ="CATEGORY_ID"),
