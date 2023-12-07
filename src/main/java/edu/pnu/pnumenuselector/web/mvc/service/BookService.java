@@ -72,4 +72,13 @@ public class BookService {
         bookRepository.delete(book);
     }
 
+
+
+    public List<Book> search3LatestBook(){
+        List<Book> top3Books = bookRepository.findFirst3ByOrderByIdDesc();
+        if (top3Books.size() < 3){
+            throw new IllegalStateException();
+        }
+        return top3Books;
+    }
 }

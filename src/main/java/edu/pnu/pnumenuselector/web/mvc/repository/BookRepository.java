@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
+import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
@@ -12,4 +13,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<List<Book>> findBookByTitle(String title);
 
     Optional<List<Book>> findBooksByOwner(Member owner);
+
+    List<Book> findFirst3ByOrderByIdDesc();
 }

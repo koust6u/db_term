@@ -78,4 +78,14 @@ public class BookController {
 
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/latest")
+    public ResponseEntity<?> getLatest3Books(){
+        List<BookRegDto> bookRegDtos = bookService.search3LatestBook()
+                .stream()
+                .map(Book::convertToDto)
+                .toList();
+
+        return ResponseEntity.ok(bookRegDtos);
+    }
 }
