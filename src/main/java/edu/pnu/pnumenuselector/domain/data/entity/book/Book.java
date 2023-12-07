@@ -2,6 +2,7 @@ package edu.pnu.pnumenuselector.domain.data.entity.book;
 
 import edu.pnu.pnumenuselector.domain.data.dto.book.BookRegDto;
 import edu.pnu.pnumenuselector.domain.data.dto.book.CategoryRegWithBookDto;
+import edu.pnu.pnumenuselector.domain.data.entity.BaseEntity;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
 import edu.pnu.pnumenuselector.domain.data.entity.order.Order;
 import jakarta.persistence.*;
@@ -68,6 +69,7 @@ public class Book {
                 )
                 .ownerNickName(this.owner.getUserId())
                 .author(this.author)
+                .tel(this.owner.getProfile().getTel())
                 .price(this.price)
                 .description(this.description)
                 .title(this.title)

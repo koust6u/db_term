@@ -30,7 +30,13 @@ public class Profile {
     private String name;
     private String message;
 
+
+    @Getter
+    private String tel;
+
+
     @Column(name = "URL")
+    @Getter
     private String profilePhotoUrl;
 
     @Getter
@@ -51,5 +57,12 @@ public class Profile {
         this.name = response.getNickname();
         this.message = response.getMessage();
         this.profilePhotoUrl = response.getUrl();
+    }
+
+    public void init(String tel, String url,String name, String message){
+        this.tel = tel;
+        this.profilePhotoUrl = url;
+        this.message = message;
+        this.name  = name;
     }
 }

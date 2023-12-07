@@ -12,6 +12,7 @@ import edu.pnu.pnumenuselector.domain.data.dto.member.LoginForm;
 import edu.pnu.pnumenuselector.domain.data.dto.member.UpdateForm;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
 import edu.pnu.pnumenuselector.web.WebConstant;
+import edu.pnu.pnumenuselector.web.mvc.service.AuthorityService;
 import edu.pnu.pnumenuselector.web.mvc.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -28,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import java.time.LocalDateTime;
+
 
 @Slf4j
 @RestController
@@ -37,25 +40,31 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 public class MemberController {
     private final MemberService memberService;
 
+    private final AuthorityService authorityService;
+
     @GetMapping("/health")
-    public ResponseEntity<?> loginCheck(@SessionAttribute(name = SESSION_ID, required = false)Member member
-    ){
-        return member != null? ResponseEntity.ok().build():ResponseEntity.status(FORBIDDEN).build();
+    public ResponseEntity<?> loginCheck(@SessionAttribute(name = SESSION_ID, required = false) Member member
+    ) {
+        return member != null ? ResponseEntity.ok().build() : ResponseEntity.status(FORBIDDEN).build();
     }
+
     @GetMapping
-    public ResponseEntity<?> responseMyInfo(@SessionAttribute(name = SESSION_ID, required = false)Member member){
+    public ResponseEntity<?> responseMyInfo(@SessionAttribute(name = SESSION_ID, required = false) Member member) {
         return ResponseEntity.ok(member.toResponse());
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> memberRegistration(@RequestBody JoinForm form){
-        memberService.signUp(form.toEntity());
+    public ResponseEntity<?> memberRegistration(@RequestBody JoinForm form) {
+        memberService.signUp(form);
         return ResponseEntity.status(CREATED).build();
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginForm form,HttpServletRequest request){
+    public ResponseEntity<?> login(@RequestBody LoginForm form, HttpServletRequest request) {
         Member certifiedMember = memberService.login(form.getUserId(), form.getPassword());
+        if (authorityService.isBanned(form.getUserId())){
+            return ResponseEntity.badRequest().body(certifiedMember.getAuthority().getBannedTime());
+        }
         HttpSession session = request.getSession();
         session.setAttribute(SESSION_ID, certifiedMember);
         session.setMaxInactiveInterval(1800);
@@ -63,9 +72,9 @@ public class MemberController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request){
+    public ResponseEntity<?> logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (session != null){
+        if (session != null) {
             session.invalidate();
         }
         return ResponseEntity.status(NO_CONTENT).build();
@@ -74,9 +83,9 @@ public class MemberController {
     @DeleteMapping
     public ResponseEntity<?> memberRemoval(
             HttpServletRequest request,
-            @SessionAttribute(name = SESSION_ID, required = false)Member member
-    ){
-        log.info("{} will deleted few mins later",member.getUserId());
+            @SessionAttribute(name = SESSION_ID, required = false) Member member
+    ) {
+        log.info("{} will deleted few mins later", member.getUserId());
         memberService.withdrawal(member.getUserId());
         HttpSession session = request.getSession(false);
         session.invalidate();
@@ -84,15 +93,21 @@ public class MemberController {
     }
 
     @PatchMapping
-    public ResponseEntity<?> updateMemberInfo(@RequestBody UpdateForm form, HttpServletRequest request){
+    public ResponseEntity<?> updateMemberInfo(@RequestBody UpdateForm form,
+                                              @SessionAttribute(name = SESSION_ID) Member member,
+                                              HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        Member member = (Member)session.getAttribute(SESSION_ID);
-
         String ip = request.getHeader(REMOTE_ADDR);
         form.setModifyBy(ip);
         Member update = memberService.update(form, member.getId());
         session.setAttribute(SESSION_ID, update);
         return ResponseEntity.ok(update.toResponse());
     }
+
+    @GetMapping("/count")
+    public ResponseEntity<?> count(){
+        return ResponseEntity.ok(memberService.count());
+    }
+
 
 }

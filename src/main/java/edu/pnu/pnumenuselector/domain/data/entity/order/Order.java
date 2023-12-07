@@ -29,19 +29,24 @@ public class Order {
     @JoinColumn(name = "BOOK_ID", nullable = false)
     private Book book;
 
+    @Getter
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "LENDER")
     private Member lender;
 
     @ManyToOne(fetch = LAZY)
+    @Getter
     @JoinColumn(name = "BORROWER")
     private Member borrower;
 
     @Setter
+    @Getter
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Setter
+    @Getter
     private LocalDateTime period;
 
     @Setter
@@ -51,10 +56,18 @@ public class Order {
     public OrderDto convertToDto(){
         return OrderDto.builder()
                 .lender(lender.getUserId())
+                .borrower(this.borrower == null ? null : this.borrower.getUserId())
                 .status(this.status)
                 .period(this.period)
                 .receipt(this.receipt)
                 .build();
+    }
+
+    public void orderRequest(Member borrower){
+        if (borrower == null){
+            throw new NullPointerException("대출자 Null point Exception");
+        }
+        this.borrower= borrower;
     }
 
 }

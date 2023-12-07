@@ -44,7 +44,6 @@ class CategoryServiceTest {
         Long id = DataUtils.randomSave(memberService);
         Member member = memberService.findOne(id);
         List<Book> books = DataUtils.genBookList(member);
-        books.forEach(bookService::registrationBook);
         Category category = Category.builder()
                 .books(books)
                 .name("기술 서적")

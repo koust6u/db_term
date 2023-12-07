@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface OrderRepository extends JpaRepository<Order,Long> {
 
     List<Order> findOrderByLender(Member lender);
+
+    List<Order> findOrdersByBorrower(Member borrower);
 }

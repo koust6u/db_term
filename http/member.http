@@ -32,7 +32,6 @@ Content-Type: application/json
 X-Forwarded-For: 128.0.0.1
 
 {
-  "userId": "changed",
   "password": "changed",
   "email": "cha@nge.d",
   "birthday": "1234-12-11"

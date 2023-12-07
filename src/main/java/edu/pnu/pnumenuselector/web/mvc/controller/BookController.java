@@ -3,10 +3,12 @@ package edu.pnu.pnumenuselector.web.mvc.controller;
 import static edu.pnu.pnumenuselector.web.WebConstant.SESSION_ID;
 import static org.springframework.http.HttpStatus.CREATED;
 
+import edu.pnu.pnumenuselector.domain.data.dto.book.BookLentDto;
 import edu.pnu.pnumenuselector.domain.data.dto.book.BookRegDto;
 import edu.pnu.pnumenuselector.domain.data.entity.book.Book;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
 import edu.pnu.pnumenuselector.domain.data.entity.order.Order;
+import edu.pnu.pnumenuselector.domain.data.entity.order.OrderStatus;
 import edu.pnu.pnumenuselector.web.mvc.service.BookService;
 import edu.pnu.pnumenuselector.web.mvc.service.CategoryService;
 import edu.pnu.pnumenuselector.web.mvc.service.MemberService;
@@ -55,6 +57,27 @@ public class BookController {
         return ResponseEntity.ok(collect);
     }
 
+    @GetMapping("/borrow")
+    public ResponseEntity<?> borrowBookList(@SessionAttribute(name = SESSION_ID)Member member){
+        List<BookLentDto> bookLentDtos = orderService.searchMyBorrowBook(member)
+                .stream()
+                .map(e -> mapping(e, e.getBook()))
+                .toList();
+        return ResponseEntity.ok(bookLentDtos);
+    }
+
+
+    private BookLentDto mapping(Order order, Book book){
+        return BookLentDto.builder()
+                .img(book.getUrl())
+                .desc(book.getDescription())
+                .owner(order.getLender().getUserId())
+                .title(book.getTitle())
+                .period(order.getPeriod())
+                .author(book.getAuthor())
+                .status(order.getStatus())
+                .build();
+    }
     @GetMapping
     public ResponseEntity<?> searchMyBookList(@SessionAttribute(name = SESSION_ID)Member member){
 
@@ -87,5 +110,10 @@ public class BookController {
                 .toList();
 
         return ResponseEntity.ok(bookRegDtos);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<?> count(){
+        return ResponseEntity.ok(bookService.count());
     }
 }

@@ -27,13 +27,13 @@ public class ProfileController {
     private final ProfileService profileService;
 
     @GetMapping
-    public ResponseEntity<?> showVisibleMemberInfo(@SessionAttribute(SESSION_ID)Member member){
+    public ResponseEntity<?> showVisibleMemberInfo(@SessionAttribute(name = SESSION_ID)Member member){
         Profile profile = profileService.findOne(member.getId());
         return ResponseEntity.ok(profile.toResponse());
     }
 
     @PatchMapping
-    public ResponseEntity<?> updateVisibleMemberInfo(@SessionAttribute(SESSION_ID)Member member,
+    public ResponseEntity<?> updateVisibleMemberInfo(@SessionAttribute(name = SESSION_ID)Member member,
                                                      @RequestBody ProfileDto dto){
         ProfileDto update = profileService.update(dto, member);
         return ResponseEntity.ok(update);

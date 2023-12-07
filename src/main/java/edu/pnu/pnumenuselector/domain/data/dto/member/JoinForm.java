@@ -29,6 +29,14 @@ public class JoinForm {
     private String email;
     private LocalDate birthday;
 
+
+    private String name;
+
+    private String message;
+    private String tel;
+
+    private String url;
+
     public Member toEntity(){
         return Member.builder()
                 .birthDay(this.birthday)

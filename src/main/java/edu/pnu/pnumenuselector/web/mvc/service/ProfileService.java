@@ -1,10 +1,12 @@
 package edu.pnu.pnumenuselector.web.mvc.service;
 
+import edu.pnu.pnumenuselector.domain.data.dto.member.JoinForm;
 import edu.pnu.pnumenuselector.domain.data.dto.profile.ProfileDto;
 import edu.pnu.pnumenuselector.web.mvc.repository.ProfileRepository;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Member;
 import edu.pnu.pnumenuselector.domain.data.entity.member.Profile;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.mapping.Join;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,10 +18,12 @@ public class ProfileService {
     private final ProfileRepository profileRepository;
 
     @Transactional
-    public Profile createByMember(Member member){
+    public Profile createByMember(Member member, JoinForm form){
         Profile newProfile = Profile.builder()
                 .member(member)
                 .build();
+
+        newProfile.init(form.getTel(),form.getUrl(), form.getName(), form.getMessage());
         profileRepository.save(newProfile);
 
         return newProfile;

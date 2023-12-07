@@ -18,8 +18,10 @@ public class BookRegDto {
     private String description;
     private int price;
 
+    private String borrower;
     private String photo;
 
+    private String tel;
     private String ownerNickName;
     private CategoryRegWithBookDto categoryRegDto;
     public Book toEntity(Member member){

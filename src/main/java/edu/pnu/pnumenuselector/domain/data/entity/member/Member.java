@@ -2,6 +2,7 @@ package edu.pnu.pnumenuselector.domain.data.entity.member;
 
 import static jakarta.persistence.CascadeType.REMOVE;
 
+import edu.pnu.pnumenuselector.domain.data.dto.authority.MemberView;
 import edu.pnu.pnumenuselector.domain.data.dto.member.MemberResponse;
 import edu.pnu.pnumenuselector.domain.data.dto.member.UpdateForm;
 import edu.pnu.pnumenuselector.domain.data.entity.BaseEntity;
@@ -25,20 +26,19 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue
     @Column(name="MEMBER_ID")
-    @Getter
     private Long id;
 
-    @Getter
+
     @Column(nullable = false)
     private String userId;
 
     @Column(nullable = false)
-    @Getter
     private String password;
 
     @Column(nullable = false, name = "NAME")
@@ -46,15 +46,11 @@ public class Member extends BaseEntity {
 
     private String email;
 
-    @Getter
     @OneToOne(mappedBy = "member", cascade = REMOVE)
     private Authority authority;
-
-    @Getter
     @OneToOne(mappedBy = "member", cascade = REMOVE)
     private Profile profile;
 
-    @Getter
     @OneToOne(mappedBy = "member", cascade = REMOVE)
     private Account account;
 
@@ -67,9 +63,9 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "borrower", cascade = REMOVE)
     private List<Order> borrowList = new ArrayList<>();
 
-    @Getter
     @OneToMany(mappedBy = "owner", cascade = REMOVE)
     private List<Book> books = new ArrayList<>();
+
     public void initializeRelation(Account account, Profile profile, Authority authority){
         this.account = account;
         this.profile = profile;
@@ -96,5 +92,19 @@ public class Member extends BaseEntity {
         this.email = form.getEmail();
         this.birthDay = form.getBirthday();
         this.lastModifiedBy = form.getModifyBy();
+    }
+
+    public MemberView convertToMemberView(){
+        return MemberView.builder()
+                .tel(this.getProfile().getTel())
+                .name(this.getUsername())
+                .url(this.profile.getProfilePhotoUrl())
+                .userId(this.userId)
+                .role(this.authority.getRole())
+                .bannedTime(this.getAuthority().getBannedTime())
+                .pardonTime(this.getAuthority().getPardonTime())
+                .signUpTime(this.getCreatedAt())
+                .bookCount(this.getBooks().size())
+                .build();
     }
 }

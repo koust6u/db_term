@@ -1,5 +1,6 @@
 package edu.pnu.pnumenuselector.web.mvc.service;
 
+import edu.pnu.pnumenuselector.domain.data.dto.member.JoinForm;
 import edu.pnu.pnumenuselector.domain.data.dto.member.UpdateForm;
 import edu.pnu.pnumenuselector.web.exception.MemberNotFoundException;
 import edu.pnu.pnumenuselector.web.mvc.repository.MemberRepository;
@@ -23,11 +24,16 @@ public class MemberService {
     private final AuthorityService authorityService;
 
     @Transactional
-    public Long signUp(Member member) {
+    public Long signUp(JoinForm form) {
+        Member member = form.toEntity();
         validateDuplicateUserId(member.getUserId());
         memberRepository.save(member);
-        postRegistrationProcess(member);
+        postRegistrationProcess(member, form);
         return member.getId();
+    }
+
+    public Integer count(){
+        return memberRepository.findAll().size();
     }
 
     public Member login(String userId, String password){
@@ -59,9 +65,9 @@ public class MemberService {
         return memberRepository.findByUserId(userId)
                 .orElseThrow(MemberNotFoundException::new);
     }
-    private void postRegistrationProcess(Member member) {
+    private void postRegistrationProcess(Member member, JoinForm form) {
         Account newAccount = accountService.createByMember(member);
-        Profile newProfile = profileService.createByMember(member);
+        Profile newProfile = profileService.createByMember(member, form);
         Authority newAuthority = authorityService.grantByMember(member);
         member.initializeRelation(newAccount, newProfile, newAuthority);
     }

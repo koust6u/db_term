@@ -17,11 +17,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class Authority extends BaseEntity {
 
     @Id
     @GeneratedValue
-    @Getter
     @Column(name = "AUTHORITY_ID")
     private Long id;
 
@@ -33,9 +33,18 @@ public class Authority extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Getter
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+
+    public void updateRole(Role role, String manager){
+        this.role = role;
+        this.lastModifiedBy = manager;
+    }
+
+    public void changeAuth(int period){
+        this.pardonTime = LocalDateTime.now();
+        this.bannedTime = LocalDateTime.now().plusDays(period);
+    }
 }

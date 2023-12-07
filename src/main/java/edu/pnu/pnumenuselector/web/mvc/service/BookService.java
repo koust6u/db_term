@@ -74,6 +74,10 @@ public class BookService {
 
 
 
+
+    public Integer count(){
+        return bookRepository.findAll().size();
+    }
     public List<Book> search3LatestBook(){
         List<Book> top3Books = bookRepository.findFirst3ByOrderByIdDesc();
         if (top3Books.size() < 3){
