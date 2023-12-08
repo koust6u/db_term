@@ -1,15 +1,14 @@
-# 온라인 도서 대출 서비스
+# 📘온라인 도서 대출 서비스(백엔드)
 
-## 기능구현
--[ ] 로그인 -> Session 기반 Spring Security 적용 할것
--[ ] 회원가입 -> 비밀번호 해싱 (BCrypt) 
--[x] 크레딧 충전 신청
--[x] 크레딧 송금 신청
--[ ] 장바구니에 담기
--[ ] 리뷰작성[ ] 
+## 프레임 워크 
+<div style="display:flex; flex-direction:column; align-items:flex-start;">
+  <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=Spring&logoColor=white" />
+  <img src="https://img.shields.io/badge/SpringJPA-6DB33F?style=flat&logo=Spring&logoColor=white" />
+  <img src="https://img.shields.io/badge/SpringMVC-6DB33F?style=flat&logo=Spring&logoColor=white" />
+</div>
 
 
-## AOP
 
-### 예외 처리
--[ ] 등록/삭제된 회원으로 책 등록 접근 시 
+## Entities
+
+![schema](https://github.com/koust6u/db_term/assets/111568619/1e372ce4-9b23-4c26-9a5c-7bb421f990b2)
