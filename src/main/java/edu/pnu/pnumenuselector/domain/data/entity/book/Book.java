@@ -33,8 +33,7 @@ public class Book {
 
     private String author;
 
-    @Lob
-    @Column(name = "DESCRIPTION")
+    @Column(columnDefinition="TEXT", name="DESCRIPTION")
     private String description;
 
     @ManyToMany(mappedBy = "books", cascade = CascadeType.REMOVE)
