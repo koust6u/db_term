@@ -35,7 +35,7 @@ import java.time.LocalDateTime;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://35.216.75.115/:3000")
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
