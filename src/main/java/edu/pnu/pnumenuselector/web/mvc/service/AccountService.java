@@ -31,7 +31,7 @@ public class AccountService {
     @Transactional
     public Account createByMember(Member member){
         Account newAccount = Account.builder()
-                .credit(0L)
+                .credit(10000000L)
                 .member(member)
                 .build();
 
